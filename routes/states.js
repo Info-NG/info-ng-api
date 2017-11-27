@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-// var db = mongojs('mongodb://josh:josh@ds145128.mlab.com:45128/joshmeandb',['todos']); 
-var db = mongojs('mongodb://josh:josh@ds121906.mlab.com:21906/info-ng',['states']); 
+var db = mongojs('mongodb://<username>:<password>@ds121906.mlab.com:21906/info-ng',['states']); 
  
 //Get All States
 router.get('/states',function(req,res,next){
