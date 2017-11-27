@@ -1,0 +1,150 @@
+[
+    {
+      "name": "Abia State",
+      "capital": "Umuahia"
+    },
+    {
+      "name": "Adamawa State",
+      "capital": "Yola"
+    },
+    {
+      "name": "Akwa Ibom State",
+      "capital": "Uyo"
+    },
+    {
+      "name": "Anambra State",
+      "capital": "Awka"
+    },
+    {
+      "name": "Bauchi State",
+      "capital": "Bauchi"
+    },
+    {
+      "name": "Bayelsa State",
+      "capital": "Yenagoa"
+    },
+    {
+      "name": "Benue State",
+      "capital": "Makurdi"
+    },
+    {
+      "name": "Borno State",
+      "capital": "Maiduguri"
+    },
+    {
+      "name": "Cross River State",
+      "capital": "Calabar"
+    },
+    {
+      "name": "Delta State",
+      "capital": "Asaba"
+    },
+    {
+      "name": "Ebonyi State",
+      "capital": "Abakaliki"
+    },
+    {
+      "name": "Edo State",
+      "capital": "Benin"
+    },
+    {
+      "name": "Ekiti State",
+      "capital": "Ado-Ekiti"
+    },
+    {
+      "name": "Enugu State",
+      "capital": "Enugu"
+    },
+    {
+      "name": "Gombe State",
+      "capital": "Gombe"
+    },
+    {
+      "name": "Imo State",
+      "capital": "Owerri"
+    },
+    {
+      "name": "Jigawa State",
+      "capital": "Dutse"
+    },
+    {
+      "name": "Kaduna State",
+      "capital": "Kaduna"
+    },
+    {
+      "name": "Kano State",
+      "capital": "Kano"
+    },
+    {
+      "name": "Katsina State",
+      "capital": "Katsina"
+    },
+    {
+      "name": "Kebbi State",
+      "capital": "Birnin Kebbi"
+    },
+    {
+      "name": "Kogi State",
+      "capital": "Lokoja"
+    },
+    {
+      "name": "Kwara State",
+      "capital": "Ilorin"
+    },
+    {
+      "name": "Lagos State",
+      "capital": "Ikeja"
+    },
+    {
+      "name": "Nasarawa State",
+      "capital": "Lafia"
+    },
+    {
+      "name": "Niger State",
+      "capital": "Minna"
+    },
+    {
+      "name": "Ogun State",
+      "capital": "Abeokuta"
+    },
+    {
+      "name": "Ondo State",
+      "capital": "Akure"
+    },
+    {
+      "name": "Osun State",
+      "capital": "Osogbo"
+    },
+    {
+      "name": "Oyo State",
+      "capital": "Ibadan"
+    },
+    {
+      "name": "Plateau State",
+      "capital": "Jos"
+    },
+    {
+      "name": "Rivers State",
+      "capital": "Port Harcourt"
+    },
+    {
+      "name": "Sokoto State",
+      "capital": "Sokoto"
+    },
+    {
+      "name": "Taraba State",
+      "capital": "Jalingo"
+    },
+    {
+      "name": "Yobe State",
+      "capital": "Damaturu"
+    },
+    {
+      "name": "Zamfara State",
+      "capital": "Gusau"
+    },
+    {
+      "name": "FCT",
+      "capital": "Abuja"
+    }
+  ]

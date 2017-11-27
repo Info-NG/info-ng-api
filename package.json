@@ -1,0 +1,32 @@
+{
+  "name": "info-ng",
+  "version": "1.0.0",
+  "description": "Obtained Info about the country, Nigeria",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josholadele/info-ng.git"
+  },
+  "keywords": [
+    "info",
+    "nigeria",
+    "api",
+    "states",
+    "capital"
+  ],
+  "author": "Josh Oladele",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "*",
+    "ejs": "*",
+    "express": "*",
+    "mongojs": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/josholadele/info-ng/issues"
+  },
+  "homepage": "https://github.com/josholadele/info-ng#readme"
+}
