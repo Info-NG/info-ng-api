@@ -5,41 +5,41 @@ var config = require('../config');
 
 // var db = mongojs('mongodb://'+config.db.user+':'+config.db.password+'@ds121906.mlab.com:21906/info-ng');
 var db = mongojs(config.db.connectionString)
-
-//Get All LGAs
+ 
+//Get All States
 router.get('/', function (req, res, next) {
     if(req.query.capital){
-        db.lgas.findOne({
+        db.states.findOne({
             capital: req.query.capital
-        }, function (err, singleLGA) {
+        }, function (err, singleState) {
             if (err) {
                 res.send(err);
             } else {
-                if(singleLGA){
+                if(singleState){
                     db.lgas.find({
-                        state: String(singleLGA._id)
-                    }).sort({id: 1},function (err, lgas) {
+                        state: String(singleState._id)
+                    }).sort({id: 1},function (err, states) {
                         if (err) {
                             res.send(err);
                         } else {
-                            singleLGA["lgas"] = lgas
-                            res.json(singleLGA);
+                            singleState["lgas"] = states
+                            res.json(singleState);
                         }
                     })
 
-                    // res.json(singleLGA);
+                    // res.json(singleState);
                 }else{
                     res.status(404)
-                    res.send('LGA not found')
+                    res.send('State not found')
                 }
             }
         });
     }else{
-        db.lgas.find(function (err, lgas) {
+        db.states.find(function (err, states) {
             if (err) {
                 res.send(err);
             } else {
-                res.json(lgas);
+                res.json(states);
             }
         })
     }
@@ -48,22 +48,40 @@ router.get('/', function (req, res, next) {
 });
 
 
-//Get LGA by id
-router.get('/:id', function (req, res, next) {
-    db.lgas.findOne({
-        _id: mongojs.ObjectId(req.params.id)
+//Get State by id
+// router.get('/:id', function (req, res, next) {
+//     db.states.findOne({
+//         _id: mongojs.ObjectId(String(req.params.id))
+//     }, function (err, state) {
+//         if (err) {
+//             res.send(err);
+//         } else {
+//             res.json(state);
+//         }
+//     });
+// });
+
+//Get State by name or alias
+router.get('/:name/details', function (req, res, next) {
+    db.states.findOne({
+        name: req.params.name
     }, function (err, state) {
         if (err) {
             res.send(err);
         } else {
-            res.json(state);
+            if(state){
+                res.json(state);
+            }else{
+                res.status(404)
+                res.send('State not found')
+            }
         }
     });
 });
 
 
-//Save LGA
-router.post('/state', function (req, res, next) {
+//Save State
+router.post('/', function (req, res, next) {
     var state = req.body;
     if (!state.firstName || !(state.lastName) || !(state.class) || !(state.gender)) {
         res.status(400)
@@ -71,7 +89,7 @@ router.post('/state', function (req, res, next) {
             "error": "Invalid Data"
         })
     } else {
-        db.lgas.save(state, function (err, result) {
+        db.states.save(state, function (err, result) {
             if (err) {
                 res.send(err);
             } else {
@@ -81,8 +99,8 @@ router.post('/state', function (req, res, next) {
     }
 })
 
-//Update LGA
-router.put('/state/:id', function (req, res, next) {
+//Update State
+router.put('/:id', function (req, res, next) {
     var state = req.body;
     var updObj = {};
 
@@ -92,7 +110,7 @@ router.put('/state/:id', function (req, res, next) {
             "error": "Invalid Data"
         })
     } else {
-        db.lgas.update({
+        db.states.update({
             _id: mongojs.ObjectId(req.params.id)
         }, state, {}, function (err, result) {
             if (err) {
@@ -104,9 +122,9 @@ router.put('/state/:id', function (req, res, next) {
     }
 })
 
-//Delete LGA
-router.delete('/state/:id', function (req, res, next) {
-    db.lgas.remove({
+//Delete State
+router.delete('/:id', function (req, res, next) {
+    db.states.remove({
         _id: mongojs.ObjectId(req.params.id)
     }, 1, function (err, result) {
         if (err) {
@@ -118,8 +136,8 @@ router.delete('/state/:id', function (req, res, next) {
 });
 
 
-//Update LGAs
-router.put('/lgas/update', function (req, res, next) {
+//Update States
+router.put('/states/update', function (req, res, next) {
     var state1 = req.body;
     var updObj = {};
 
@@ -132,7 +150,7 @@ router.put('/lgas/update', function (req, res, next) {
         var stateInfo;
         stateInfo = stateJson.info
 
-        db.lgas.findOne({
+        db.states.findOne({
             capital: stateInfo.Capital
         }, function (err, state) {
             if (err) {
@@ -153,7 +171,7 @@ router.put('/lgas/update', function (req, res, next) {
                     state["population"] = stateInfo.Population
 
 
-                    db.lgas.update({
+                    db.states.update({
                         _id: mongojs.ObjectId(state._id)
                     }, state, {}, function (err, result) {
                         if (err) {

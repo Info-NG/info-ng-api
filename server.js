@@ -24,9 +24,10 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, './')))
 
 app.use('/', index);
-app.use('/api/states', states);
-app.use('/api/governors', governors);
-app.use('/api/lgas', lgas);
+app.use('/states', states);
+app.use('/governors', governors);
+app.use('/people', governors);
+app.use('/lgas', lgas);
 
 // app.use(app.router);
 // states.initialize(app);
@@ -34,7 +35,7 @@ app.use('/api/lgas', lgas);
 
 // app.get('/*', function(req, res) {
 //     // console.log('Redirecting to API')
-//     res.redirect('/api');
+//     res.redirect('/');
 //   });
 
 app.listen(app.get('port'), function(){

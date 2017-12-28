@@ -1,33 +1,33 @@
 var express = require('express');
 var router = express.Router();
 var mongojs = require('mongojs');
-//<username>:<password>
-var db = mongojs('mongodb://<username>:<password>@ds121906.mlab.com:21906/info-ng', ['states']);
-var lga_db = mongojs('mongodb://<username>:<password>@ds121906.mlab.com:21906/info-ng', ['lgas']);
+var config = require('../config');
+
+// var db = mongojs('mongodb://'+config.db.user+':'+config.db.password+'@ds121906.mlab.com:21906/info-ng');
+var db = mongojs(config.db.connectionString)
 
 //Get All States
 router.get('/', function (req, res, next) {
-    if(req.query){
+    if(req.query.capital){
         db.states.findOne({
             capital: req.query.capital
-        }, function (err, state) {
+        }, function (err, singleState) {
             if (err) {
                 res.send(err);
             } else {
-                if(state){
-                    lga_db.lgas.find({
-                        state: state._id
-                    }, function (err, lgas) {
+                if(singleState){
+                    db.lgas.find({
+                        state: String(singleState._id)
+                    }).sort({id: 1},function (err, states) {
                         if (err) {
                             res.send(err);
                         } else {
-                            console.log(lgas)
-                            state["lgas"] = lgas
-                            res.json(state);
+                            singleState["lgas"] = states
+                            res.json(singleState);
                         }
                     })
 
-                    // res.json(state);
+                    // res.json(singleState);
                 }else{
                     res.status(404)
                     res.send('State not found')
@@ -35,7 +35,7 @@ router.get('/', function (req, res, next) {
             }
         });
     }else{
-        db.states.find(function (err, states) {
+        db.states.find({},{ name: 1, capital: 1, _id: 0 }).sort({name: 1},function (err, states) {
             if (err) {
                 res.send(err);
             } else {
@@ -47,23 +47,40 @@ router.get('/', function (req, res, next) {
     // res.send('STUDENT APIs');
 });
 
-
-//Get State by id
-router.get('/:id', function (req, res, next) {
+//Get State by name or alias
+router.get('/:name', function (req, res, next) {
+    // db.states.createIndex( {name:-1}, { collation: { locale: 'en', strength: 2 }} );
     db.states.findOne({
-        _id: mongojs.ObjectId(req.params.id)
-    }, function (err, state) {
+        $or: [ { name: req.params.name }, { capital: req.params.name } ]
+    }, function (err, singleState) {
         if (err) {
             res.send(err);
         } else {
-            res.json(state);
+            if(singleState){
+                // res.json(singleState);
+
+                db.lgas.find({
+                    state: String(singleState._id)
+                }).sort({id: 1},function (err, states) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        singleState["lgas"] = states
+                        res.json(singleState);
+                    }
+                })
+
+            }else{
+                res.status(404)
+                res.send('State not found')
+            }
         }
     });
 });
 
 
 //Save State
-router.post('/state', function (req, res, next) {
+router.post('/', function (req, res, next) {
     var state = req.body;
     if (!state.firstName || !(state.lastName) || !(state.class) || !(state.gender)) {
         res.status(400)
@@ -82,7 +99,7 @@ router.post('/state', function (req, res, next) {
 })
 
 //Update State
-router.put('/state/:id', function (req, res, next) {
+router.put('/:id', function (req, res, next) {
     var state = req.body;
     var updObj = {};
 
@@ -105,7 +122,7 @@ router.put('/state/:id', function (req, res, next) {
 })
 
 //Delete State
-router.delete('/state/:id', function (req, res, next) {
+router.delete('/:id', function (req, res, next) {
     db.states.remove({
         _id: mongojs.ObjectId(req.params.id)
     }, 1, function (err, result) {
@@ -119,7 +136,7 @@ router.delete('/state/:id', function (req, res, next) {
 
 
 //Update States
-router.put('/states/update', function (req, res, next) {
+router.put('/update', function (req, res, next) {
     var state1 = req.body;
     var updObj = {};
 
